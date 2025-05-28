@@ -34,9 +34,13 @@ Passes the best matching snippet + user question to GPT
 Prints the answer
 
 ## How to run it
-source chroma-env/bin/activate
+1. Activate your virtual environment
+  source chroma-env/bin/activate
+2. Run the script
+  python chroma_test.py
 
 ## What does requirements.txt do?
+Its is a simple text file that lists all the Python packages your project needs, often with specific versions or version ranges.
 chromadb — The vector database library for embeddings and search
 openai — Official OpenAI Python SDK to call GPT and embedding APIs
 python-dotenv — For managing environment variables easily (optional but recommended)

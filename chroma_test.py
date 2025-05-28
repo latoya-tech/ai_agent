@@ -1,8 +1,14 @@
 import os
+from dotenv import load_dotenv
 from chromadb.config import Settings
 from chromadb import Client
 from chromadb.utils import embedding_functions
 from openai import OpenAI
+
+os.environ["CHROMA_DB_IMPL"] = "duckdb+parquet"
+os.environ["CHROMA_PERSIST_DIRECTORY"] = "./chroma_db"
+
+load_dotenv()  # Load environment variables from .env
 
 # Load OpenAI API key from environment
 OPENAI_API_KEY = os.getenv("OPENAI_API_KEY")
@@ -12,11 +18,19 @@ if not OPENAI_API_KEY:
 # Initialize OpenAI client
 client_openai = OpenAI(api_key=OPENAI_API_KEY)
 
-# Initialize Chroma client (local persistence folder: 'chroma_db')
-chroma_client = Client(Settings(
-    persist_directory="chroma_db",
-    chroma_api_impl="local"
-))
+# Just create the client — no arguments!
+chroma_client = Client()
+
+# Create a collection
+collection = chroma_client.create_collection(name="test_collection")
+
+# Add some sample documents
+collection.add(
+    documents=["Hello world", "Chroma is cool"],
+    ids=["doc1", "doc2"]
+)
+
+print("Data stored with persistence enabled! ✅")
 
 # Use OpenAI embeddings function via chromadb utils
 openai_ef = embedding_functions.OpenAIEmbeddingFunction(
@@ -60,9 +74,6 @@ for item in newsletter_texts:
         documents=[item["text"]],
         ids=[item["id"]]
     )
-
-# Persist collection to disk
-chroma_client.persist()
 
 # Simple query example
 query = "How did Dapper Dan study products in his industry?"
