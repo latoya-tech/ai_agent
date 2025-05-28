@@ -21,6 +21,21 @@ This repository contains an AI-powered agent designed to answer questions based 
   export OPENAI_API_KEY="your_api_key_here"
 4. Run the example script
    python chroma_test.py
+   ```
+## What does chroma_test.py do?
+Sets up Chroma with local persistence
+
+Adds sample newsletter snippets as vectors
+
+Queries by semantic similarity
+
+Passes the best matching snippet + user question to GPT
+
+Prints the answer
+
+## How to run it
+source chroma-env/bin/activate
+
 
 ## License
 
