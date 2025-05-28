@@ -36,6 +36,11 @@ Prints the answer
 ## How to run it
 source chroma-env/bin/activate
 
+## What does requirements.txt do?
+chromadb — The vector database library for embeddings and search
+openai — Official OpenAI Python SDK to call GPT and embedding APIs
+python-dotenv — For managing environment variables easily (optional but recommended)
+
 
 ## License
 
